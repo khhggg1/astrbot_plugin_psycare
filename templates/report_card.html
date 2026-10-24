@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 760px;
+    background: #eef1f8;
+    color: #1f2430;
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card { padding: 26px; }
+  .panel { background: #fff; border-radius: 22px; padding: 26px; box-shadow: 0 10px 30px rgba(31, 36, 48, .07); }
+
+  .top { display: flex; align-items: center; gap: 18px; }
+  .avatar {
+    width: 62px; height: 62px; border-radius: 20px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, #5b7cfa, #b06ae0);
+  }
+  .who { flex: 1; }
+  .who h2 { font-size: 21px; font-weight: 700; }
+  .who p { margin-top: 5px; font-size: 12.5px; color: #8b94a8; }
+
+  .score-wrap { flex: none; text-align: center; }
+  .ring {
+    width: 86px; height: 86px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: conic-gradient({{ ring_color }} {{ ring_deg }}deg, #eef1f8 0deg);
+  }
+  .ring-inner {
+    width: 68px; height: 68px; border-radius: 50%; background: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .ring-inner b { font-size: 24px; line-height: 1; color: #333b4d; }
+  .ring-inner span { font-size: 10px; color: #9aa3b6; margin-top: 3px; }
+  .level { margin-top: 8px; font-size: 12.5px; color: {{ ring_color }}; font-weight: 600; }
+
+  .meta { display: flex; gap: 10px; margin-top: 20px; }
+  .meta div { flex: 1; background: #f7f8fc; border-radius: 14px; padding: 12px 14px; }
+  .meta b { display: block; font-size: 17px; color: #33406b; }
+  .meta span { font-size: 11.5px; color: #8b94a8; }
+
+  .section { margin-top: 20px; }
+  .section h3 { font-size: 12.5px; color: #7c869c; letter-spacing: .08em; font-weight: 600; margin-bottom: 12px; }
+
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-name { width: 86px; font-size: 13px; color: #4b587c; flex: none; }
+  .bar { flex: 1; height: 9px; border-radius: 999px; background: #eef1f8; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #6d8cff, #b06ae0); }
+  .bar-val { width: 36px; text-align: right; font-size: 12px; color: #8b94a8; flex: none; }
+
+  .strip { display: flex; align-items: flex-end; gap: 8px; height: 44px; }
+  .strip-bar { flex: 1; border-radius: 6px; background: linear-gradient(180deg, #8a6bf0, #6d8cff); }
+  .strip-bar.empty { background: #eef1f8; }
+  .strip-note { font-size: 11.5px; color: #9aa3b6; margin-top: 8px; }
+
+  .quote { border-left: 3px solid #dfe4f2; padding: 2px 0 2px 12px; margin-bottom: 10px; font-size: 13.5px; color: #4b587c; line-height: 1.7; }
+  .quote:last-child { margin-bottom: 0; }
+
+  .note { background: #f7f8fc; border-radius: 14px; padding: 14px 16px; font-size: 13.5px; line-height: 1.75; color: #4b587c; }
+  .alert { background: #fff4f0; border-radius: 14px; padding: 13px 16px; font-size: 13px; line-height: 1.7; color: #b8503a; margin-top: 14px; }
+
+  .foot { margin-top: 18px; text-align: center; font-size: 11.5px; color: #98a1b4; line-height: 1.9; }
+  .foot b { color: #7c869c; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="panel">
+    <div class="top">
+      <div class="avatar">{{ initial }}</div>
+      <div class="who">
+        <h2>{{ nick }}</h2>
+        <p>{{ group }} · {{ uid }}</p>
+        <p>{{ range }} · {{ messages }} 条消息 · 活跃 {{ active_days }} 天</p>
+      </div>
+      <div class="score-wrap">
+        <div class="ring">
+          <div class="ring-inner"><b>{{ score }}</b><span>关注度</span></div>
+        </div>
+        <div class="level">{{ level_mark }} {{ level_label }}</div>
+      </div>
+    </div>
+
+    <div class="meta">
+      <div><b>{{ n_risk }}</b><span>负性表达</span></div>
+      <div><b>{{ trend_text }}</b><span>近期趋势</span></div>
+      <div><b>{{ confidence_text }}</b><span>数据置信度</span></div>
+    </div>
+
+    {% if dims %}
+    <div class="section">
+      <h3>信号构成</h3>
+      {% for d in dims %}
+      <div class="bar-row">
+        <span class="bar-name">{{ d.label }}</span>
+        <span class="bar"><i style="width: {{ d.width }}%"></i></span>
+        <span class="bar-val">{{ d.value }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if mood_bars %}
+    <div class="section">
+      <h3>近 7 天强度</h3>
+      <div class="strip">
+        {% for b in mood_bars %}<span class="strip-bar{% if b.empty %} empty{% endif %}" style="height: {{ b.h }}px"></span>{% endfor %}
+      </div>
+      <div class="strip-note">柱子越高表示当天的情绪强度越大 · 浅色柱表示当天没有发言</div>
+    </div>
+    {% endif %}
+
+    {% if summary %}
+    <div class="section">
+      <h3>语义观察</h3>
+      <div class="note">{{ summary }}</div>
+    </div>
+    {% endif %}
+
+    {% if evidence %}
+    <div class="section">
+      <h3>原文片段</h3>
+      {% for e in evidence %}<div class="quote">「{{ e }}」</div>{% endfor %}
+    </div>
+    {% endif %}
+
+    {% if advice %}
+    <div class="section">
+      <h3>建议做法</h3>
+      <div class="note">{{ advice }}</div>
+    </div>
+    {% endif %}
+
+    {% if warning %}
+    <div class="alert">{{ warning }}</div>
+    {% endif %}
+
+    <div class="foot">
+      本报告由群消息文本自动归纳，只提示「值得关心」的线索<br />
+      不构成医学诊断 · 如有自伤风险请拨打 <b>12356</b>
+    </div>
+  </div>
+</div>
+</body>
+</html>

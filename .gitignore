@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# 构建产物
+build/
+dist/
+*.zip
+
+# 运行数据（插件实际写入 AstrBot 的 data 目录，这里只是本地调试残留）
+data/
+.test-data/
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

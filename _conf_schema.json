@@ -1,0 +1,162 @@
+{
+  "enabled": {
+    "description": "总开关",
+    "type": "bool",
+    "default": true,
+    "hint": "关闭后不再采集任何消息，已有数据保留。"
+  },
+  "require_group_activation": {
+    "description": "需要管理员在群里手动开启",
+    "type": "bool",
+    "default": true,
+    "hint": "开启时，机器人不会默默分析所有群，必须由管理员在群内发送 /心理开关 on 才开始记录。建议保持开启。"
+  },
+  "group_whitelist_enabled": {
+    "description": "只分析白名单里的群",
+    "type": "bool",
+    "default": false
+  },
+  "group_whitelist": {
+    "description": "群号白名单",
+    "type": "list",
+    "default": [],
+    "hint": "开启白名单后，只有列表里的群号会被分析，每行一个。"
+  },
+  "min_message_length": {
+    "description": "最短消息长度",
+    "type": "int",
+    "default": 2,
+    "slider": { "min": 1, "max": 20, "step": 1 },
+    "hint": "太短的消息（如“嗯”“哈”）不参与分析。"
+  },
+  "window_days": {
+    "description": "分析窗口（天）",
+    "type": "int",
+    "default": 14,
+    "slider": { "min": 1, "max": 90, "step": 1 },
+    "hint": "单人报告统计最近多少天的消息。"
+  },
+  "retention_days": {
+    "description": "数据保留天数",
+    "type": "int",
+    "default": 30,
+    "slider": { "min": 1, "max": 365, "step": 1 },
+    "hint": "超过这个天数的消息会自动删除。"
+  },
+  "max_messages_per_user": {
+    "description": "每人最多保留消息数",
+    "type": "int",
+    "default": 300,
+    "slider": { "min": 20, "max": 3000, "step": 10 }
+  },
+  "keyword_analysis": {
+    "description": "启用词频规则分析",
+    "type": "bool",
+    "default": true,
+    "hint": "本地运行，不联网，速度快。建议保持开启。"
+  },
+  "llm_analysis": {
+    "description": "启用大模型语义复核",
+    "type": "bool",
+    "default": true,
+    "hint": "会让模型读到你截取的部分群消息。关闭后只用词频规则，准确率会下降但数据完全不出本机。"
+  },
+  "llm_min_new_messages": {
+    "description": "触发 AI 复核所需的新消息数",
+    "type": "int",
+    "default": 12,
+    "slider": { "min": 3, "max": 100, "step": 1 },
+    "hint": "同一个人又发了多少条消息后才重新调用模型，避免频繁请求。"
+  },
+  "llm_cooldown_minutes": {
+    "description": "AI 复核冷却时间（分钟）",
+    "type": "int",
+    "default": 120,
+    "slider": { "min": 10, "max": 1440, "step": 10 }
+  },
+  "daily_enabled": {
+    "description": "每日群氛围日报",
+    "type": "bool",
+    "default": true,
+    "hint": "每天固定时刻自动分析当天的群聊，生成一份氛围小结。"
+  },
+  "daily_time": {
+    "description": "日报时间（HH:MM）",
+    "type": "string",
+    "default": "21:30",
+    "hint": "24 小时制，按机器人所在服务器的本地时间。"
+  },
+  "daily_target": {
+    "description": "日报发送位置",
+    "type": "string",
+    "default": "private",
+    "options": ["private", "group", "both"],
+    "labels": ["只发管理员私聊（推荐）", "只发群里", "群里发公开版 + 私聊发详细版"],
+    "subtitles": [
+      "最安全：个人情况不会出现在群里",
+      "群里只会看到整体气氛，不含人名和原话",
+      "两条消息：群里的公开版 + 私聊的详细版"
+    ]
+  },
+  "daily_min_messages": {
+    "description": "出日报的最少消息数",
+    "type": "int",
+    "default": 5,
+    "slider": { "min": 1, "max": 100, "step": 1 },
+    "hint": "当天消息太少就不生成，避免用几句话下结论。"
+  },
+  "image_report": {
+    "description": "把报告渲染成图片",
+    "type": "bool",
+    "default": true,
+    "hint": "依赖 AstrBot 的文转图（T2I / Playwright）。不可用时会自动退回文本，不会报错。"
+  },
+  "alert_enabled": {
+    "description": "推送高危提醒",
+    "type": "bool",
+    "default": true,
+    "hint": "提醒只会发给 /心理绑定 的私聊会话，不会发到群里。"
+  },
+  "alert_threshold": {
+    "description": "提醒阈值（0-100）",
+    "type": "int",
+    "default": 75,
+    "slider": { "min": 30, "max": 100, "step": 1 },
+    "hint": "关注度达到该分值时推送提醒。阈值越低越敏感，也越容易误报。"
+  },
+  "alert_cooldown_hours": {
+    "description": "同一人提醒冷却（小时）",
+    "type": "int",
+    "default": 24,
+    "slider": { "min": 1, "max": 168, "step": 1 }
+  },
+  "require_opt_in": {
+    "description": "需要成员主动同意才记录",
+    "type": "bool",
+    "default": false,
+    "hint": "打开后，只有发过 /心理加入 的成员才会被记录。适合对合规要求较高的社群。"
+  },
+  "allow_group_report": {
+    "description": "允许在群里直接展示单人报告",
+    "type": "bool",
+    "default": false,
+    "hint": "默认关闭。打开后管理员在群里查询时，报告会直接发到群里，可能暴露隐私。"
+  },
+  "care_message_enabled": {
+    "description": "危机时在群里发一句关心",
+    "type": "bool",
+    "default": false,
+    "hint": "默认关闭。打开后会 @ 当事人，可能让其感到被监控，请谨慎。"
+  },
+  "care_message": {
+    "description": "关心话术",
+    "type": "text",
+    "default": "如果最近真的很难受，可以说出来，我们都在。\n如果需要专业帮助，可以拨打全国心理援助热线 12356。"
+  },
+  "include_quotes": {
+    "description": "报告中附上原文片段",
+    "type": "bool",
+    "default": true,
+    "hint": "片段会截断到 36 字。关闭后报告只有统计结果，不含任何原话。"
+  }
+}

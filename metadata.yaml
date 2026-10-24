@@ -1,0 +1,30 @@
+name: astrbot_plugin_psycare
+display_name: 心理关怀
+short_desc: 分析群聊里的心理风险信号，生成每日氛围日报与管理员报告，不做诊断
+desc: |
+  被动分析 QQ / Telegram / Discord 群聊消息，找出「值得关心」的线索，再把结论只推给管理员私聊。
+
+  功能：
+  - 词频规则（165 条中文风险词条，8 个维度，带否定消解）+ 可选 LLM 语义复核
+  - 每日群氛围日报：群里只发整体气氛，管理员私聊才点名到人
+  - 报告卡片图（HTML + Jinja2 渲染），T2I 不可用时自动退回文字
+  - WebUI 面板：群列表、成员关注度、日报历史、一键生成日报
+  - 隐私优先：需管理员手动开启某个群，成员可随时 /心理退出 并清空数据
+
+  说明：输出的是「关注度」和「建议动作」，不构成医学诊断。
+version: 1.2.0
+author: khhggg1
+repo: https://github.com/khhggg1/astrbot_plugin_psycare
+astrbot_version: ">=4.10.0"
+support_platforms:
+  - aiocqhttp
+  - qq_official
+  - telegram
+  - discord
+  - kook
+social_link: https://github.com/khhggg1
+tags:
+  - 心理健康
+  - 群聊分析
+  - 日报
+  - 隐私

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>心理关怀面板</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">心</div>
+      <div>
+        <h1>心理关怀面板</h1>
+        <p id="subtitle">正在连接…</p>
+      </div>
+    </div>
+    <div class="actions">
+      <span id="status" class="status">●</span>
+      <button id="refresh" class="btn ghost" type="button">刷新</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats" id="stats"></section>
+
+    <section class="layout">
+      <aside class="panel groups">
+        <h2>群聊</h2>
+        <div id="groups" class="group-list"></div>
+      </aside>
+
+      <section class="panel detail">
+        <div class="detail-head">
+          <div>
+            <h2 id="group-name">选择一个群</h2>
+            <p id="group-meta" class="muted"></p>
+          </div>
+          <div class="detail-actions">
+            <button id="toggle" class="btn ghost" type="button" disabled>开启记录</button>
+            <button id="daily" class="btn primary" type="button" disabled>生成今日日报</button>
+          </div>
+        </div>
+
+        <div id="last-daily" class="last-daily hidden"></div>
+
+        <h3 class="section-title">成员关注度</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>成员</th><th>关注度</th><th>等级</th><th>消息</th><th>今日</th><th></th></tr>
+            </thead>
+            <tbody id="members"></tbody>
+          </table>
+          <p id="empty" class="empty hidden">这个群还没有记录。</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel output">
+      <div class="output-head">
+        <h2>报告内容</h2>
+        <button id="copy" class="btn ghost" type="button">复制</button>
+      </div>
+      <pre id="report">选一个成员，或点「生成今日日报」。</pre>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

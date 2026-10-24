@@ -1,0 +1,8 @@
+{
+  "views": {
+    "dashboard": {
+      "title": "心理关怀面板",
+      "description": "查看各群今日氛围、成员关注度和日报历史"
+    }
+  }
+}
