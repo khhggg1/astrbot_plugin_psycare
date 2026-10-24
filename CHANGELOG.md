@@ -3,6 +3,15 @@
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，
 版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [1.2.1] - 2026-10-24
+
+### 修复
+
+- AstrBot 4.28 及更早版本只扫描 `pages/` 目录，不识别 `views/`，导致 WebUI 面板不显示。
+  面板目录改为 `pages/dashboard/`（新版 AstrBot 优先 `views/`，找不到会自动回退到 `pages/`，
+  两种版本都能加载）。
+- i18n 同时提供 `views.dashboard` 与 `pages.dashboard` 两套标题，兼容新旧版本的元数据读取。
+
 ## [1.2.0] - 2026-10-24
 
 ### 新增

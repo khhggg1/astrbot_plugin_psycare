@@ -25,7 +25,7 @@ INCLUDE = [
     "logo.png",
     "core",
     "templates",
-    "views",
+    "pages",
     "docs",
     ".astrbot-plugin",
 ]

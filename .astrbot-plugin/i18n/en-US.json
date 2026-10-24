@@ -4,5 +4,11 @@
       "title": "PsyCare Dashboard",
       "description": "Group mood, member attention scores and daily report history"
     }
+  },
+  "pages": {
+    "dashboard": {
+      "title": "PsyCare Dashboard",
+      "description": "Group mood, member attention scores and daily report history"
+    }
   }
 }

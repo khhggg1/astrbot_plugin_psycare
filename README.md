@@ -4,7 +4,7 @@
 
 [![AstrBot](https://img.shields.io/badge/AstrBot-%3E%3D4.10-5b7cfa)](https://astrbot.app)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![version](https://img.shields.io/badge/version-1.2.0-8a6bf0)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-1.2.1-8a6bf0)](CHANGELOG.md)
 
 > AstrBot 插件：从 QQ 群聊里找出**值得关心**的对话线索，把结论只推给管理员私聊。
 > **它不是诊断工具**，输出的是「关注度」和「建议动作」，不是「抑郁症」这种结论。
@@ -91,14 +91,18 @@ templates/
 
 ## WebUI 面板
 
-插件详情页里会多出一个「心理关怀面板」（`views/dashboard/`），不依赖任何前端构建：
+插件详情页里会多出一个「心理关怀面板」（`pages/dashboard/`），不依赖任何前端构建：
 
 ```
-views/dashboard/
+pages/dashboard/
 ├── index.html   布局
 ├── style.css    亮/暗主题跟随 WebUI（data-theme）
 └── app.js       通过 window.AstrBotPluginView 调后端
 ```
+
+> 目录用 `pages/` 是为了兼容 AstrBot ≤ 4.28（那时只扫描 `pages/`）。
+> 新版 AstrBot 优先找 `views/`，找不到会自动回退到 `pages/`，所以一个目录两种版本都能用。
+> 如果面板没出现：确认插件已启用 → 重载插件 → 浏览器 Ctrl+F5 刷新 → 进插件卡片详情页找「可视化视图」。
 
 面板能做的事：
 
@@ -163,7 +167,7 @@ views/dashboard/
 **方式三：zip 安装**
 
 ```bash
-python scripts/build_release.py     # 生成 dist/astrbot_plugin_psycare-1.2.0.zip
+python scripts/build_release.py     # 生成 dist/astrbot_plugin_psycare-1.2.1.zip
 ```
 
 在 WebUI「插件」页上传该 zip 即可。
@@ -297,7 +301,7 @@ core/render.py             卡片模板的数据准备
 core/store.py              JSON 存储与过期清理
 core/config.py             配置兜底
 templates/                 两张 Jinja2 卡片（日报 / 单人报告）
-views/dashboard/           WebUI 面板（原生 JS，无需构建）
+pages/dashboard/           WebUI 面板（原生 JS，无需构建）
 .astrbot-plugin/i18n/      视图标题的多语言元数据
 docs/                      README 用到的截图
 tests/                     AstrBot 桩 + 自测

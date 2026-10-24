@@ -13,7 +13,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VIEW = ROOT / "views" / "dashboard"
+VIEW = ROOT / "pages" / "dashboard"
 OUT = ROOT / "build" / "preview" / "panel"
 
 
