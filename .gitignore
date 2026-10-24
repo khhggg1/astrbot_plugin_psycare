@@ -19,3 +19,11 @@ data/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# 本地密钥 / 证书，绝不入库
+id_*
+*.pub
+*.pem
+*.key
+*.p12
+
