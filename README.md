@@ -1,12 +1,12 @@
 <p align="center"><img src="logo.png" width="96" height="96" alt="logo"></p>
 
-# 心理关怀 · PsyCare
+# 心屿 · 气象感知关怀 · PsyCare
 
 [![AstrBot](https://img.shields.io/badge/AstrBot-%3E%3D4.10-5b7cfa)](https://astrbot.app)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![version](https://img.shields.io/badge/version-1.3.0-8a6bf0)](CHANGELOG.md)
 
-> AstrBot 插件：从 QQ 群聊里找出**值得关心**的对话线索，把结论只推给管理员私聊。
+> AstrBot 插件：结合**当日气象**，从 QQ 群聊里找出**值得关心**的对话线索，把结论只推给管理员私聊。
 > **它不是诊断工具**，输出的是「关注度」和「建议动作」，不是「抑郁症」这种结论。
 
 ---
