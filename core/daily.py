@@ -237,7 +237,7 @@ def fallback_mood(stats: DailyStats) -> dict:
     }
 
 
-def render_public(stats: DailyStats, mood: dict, *, group_name: str) -> str:
+def render_public(stats: DailyStats, mood: dict, *, group_name: str, weather=None) -> str:
     """公开版：只有整体气氛，没有任何人名和原话。"""
     mark = MOOD_MARKS[mood.get("mood", 1)]
     label = mood.get("label") or MOOD_LABELS[1]
@@ -250,10 +250,14 @@ def render_public(stats: DailyStats, mood: dict, *, group_name: str) -> str:
         f"整体气氛：{mark} {label}",
         f"今日话题：{keywords}",
     ]
+    if weather is not None:
+        lines.insert(4, f"今日气象：{weather.summary()}")
     if mood.get("summary"):
         lines += ["", f"📝 {mood['summary']}"]
     if mood.get("care_tip"):
         lines.append(f"💡 {mood['care_tip']}")
+    if weather is not None and weather.tip():
+        lines += ["", f"🌦 {weather.tip()}"]
     lines += [
         "",
         "（本报告只观察整体氛围，不评价任何个人；需要帮忙可以私聊管理员）",
@@ -262,7 +266,7 @@ def render_public(stats: DailyStats, mood: dict, *, group_name: str) -> str:
     return "\n".join(lines)
 
 
-def render_private(stats: DailyStats, mood: dict, *, group_name: str) -> str:
+def render_private(stats: DailyStats, mood: dict, *, group_name: str, weather=None) -> str:
     """私密版：给管理员，含需要留意的成员。"""
     mark = MOOD_MARKS[mood.get("mood", 1)]
     label = mood.get("label") or MOOD_LABELS[1]
@@ -272,6 +276,10 @@ def render_private(stats: DailyStats, mood: dict, *, group_name: str) -> str:
         f"消息 {stats.messages} 条 · 活跃 {stats.users} 人 · 平均强度 {stats.avg_intensity}",
         f"整体气氛：{mark} {label}",
     ]
+    if weather is not None:
+        lines.append(f"今日气象：{weather.summary()}")
+    if weather is not None and weather.tip():
+        lines.append(f"气象提示：{weather.tip()}")
     if mood.get("summary"):
         lines.append(f"观察：{mood['summary']}")
     if stats.risks:

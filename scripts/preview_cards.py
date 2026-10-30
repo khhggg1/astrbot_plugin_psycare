@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core import analyzer, daily  # noqa: E402
+from core import analyzer, daily, weather  # noqa: E402
 from core import render as render_mod  # noqa: E402
 
 TOKEN_RE = re.compile(r"({{.*?}}|{%.*?%})", re.S)
@@ -193,8 +193,16 @@ def main() -> None:
     tpl_daily = render_mod.load_template("daily_card.html")
     tpl_report = render_mod.load_template("report_card.html")
 
-    public_ctx = render_mod.daily_context(stats, mood, group_name="摸鱼小分队", private=False)
-    private_ctx = render_mod.daily_context(stats, mood, group_name="摸鱼小分队", private=True)
+    try:
+        w = weather.fetch(32.06, 118.80)
+    except Exception:
+        w = None
+    public_ctx = render_mod.daily_context(
+        stats, mood, group_name="摸鱼小分队", private=False, weather=w
+    )
+    private_ctx = render_mod.daily_context(
+        stats, mood, group_name="摸鱼小分队", private=True, weather=w
+    )
     report_ctx = render_mod.report_context(
         profile, score, llm, group_name="摸鱼小分队", window_days=14
     )

@@ -96,6 +96,16 @@
     <div class="stat"><b>{{ peak }}</b><span>最热闹时段</span></div>
   </div>
 
+  {% if weather %}
+  <div class="section" style="padding:16px 20px;">
+    <h3>今日气象</h3>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="chip" style="font-size:15px;">{{ weather.summary }}</span>
+      {% if weather.tip %}<span style="font-size:12.5px;color:#6b7488;">{{ weather.tip }}</span>{% endif %}
+    </div>
+  </div>
+  {% endif %}
+
   {% if keywords %}
   <div class="section">
     <h3>今日话题</h3>

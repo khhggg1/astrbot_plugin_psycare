@@ -46,14 +46,21 @@ def _dims(profile, limit: int = 5) -> list[dict]:
     ]
 
 
-def daily_context(stats, mood: dict, *, group_name: str, private: bool, now: int | None = None) -> dict:
+def daily_context(
+    stats, mood: dict, *, group_name: str, private: bool,
+    now: int | None = None, weather=None,
+) -> dict:
     now = int(now or datetime.now().timestamp())
     mood_index = int(mood.get("mood", 1))
     dims = sorted(stats.dims.items(), key=lambda kv: kv[1], reverse=True)[:5]
+    weather_ctx = None
+    if weather is not None:
+        weather_ctx = {"summary": weather.summary(), "tip": weather.tip()}
     return {
         "date": datetime.fromtimestamp(now).strftime("%Y-%m-%d"),
         "group": group_name or stats.group_id,
         "private": private,
+        "weather": weather_ctx,
         "messages": stats.messages,
         "users": stats.users,
         "peak": f"{stats.peak_hour:02d}:00",

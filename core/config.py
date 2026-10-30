@@ -41,6 +41,10 @@ DEFAULTS: dict[str, Any] = {
     "daily_target": "private",
     "daily_min_messages": 5,
     "image_report": True,
+    "weather_enabled": True,
+    "weather_city": "南京",
+    "weather_lat": 32.06,
+    "weather_lon": 118.80,
 }
 
 _TRUTHY = {"1", "true", "yes", "on", "y", "是", "开", "开启", "启用"}

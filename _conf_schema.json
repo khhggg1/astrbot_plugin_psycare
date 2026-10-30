@@ -26,28 +26,44 @@
     "description": "最短消息长度",
     "type": "int",
     "default": 2,
-    "slider": { "min": 1, "max": 20, "step": 1 },
+    "slider": {
+      "min": 1,
+      "max": 20,
+      "step": 1
+    },
     "hint": "太短的消息（如“嗯”“哈”）不参与分析。"
   },
   "window_days": {
     "description": "分析窗口（天）",
     "type": "int",
     "default": 14,
-    "slider": { "min": 1, "max": 90, "step": 1 },
+    "slider": {
+      "min": 1,
+      "max": 90,
+      "step": 1
+    },
     "hint": "单人报告统计最近多少天的消息。"
   },
   "retention_days": {
     "description": "数据保留天数",
     "type": "int",
     "default": 30,
-    "slider": { "min": 1, "max": 365, "step": 1 },
+    "slider": {
+      "min": 1,
+      "max": 365,
+      "step": 1
+    },
     "hint": "超过这个天数的消息会自动删除。"
   },
   "max_messages_per_user": {
     "description": "每人最多保留消息数",
     "type": "int",
     "default": 300,
-    "slider": { "min": 20, "max": 3000, "step": 10 }
+    "slider": {
+      "min": 20,
+      "max": 3000,
+      "step": 10
+    }
   },
   "keyword_analysis": {
     "description": "启用词频规则分析",
@@ -65,14 +81,22 @@
     "description": "触发 AI 复核所需的新消息数",
     "type": "int",
     "default": 12,
-    "slider": { "min": 3, "max": 100, "step": 1 },
+    "slider": {
+      "min": 3,
+      "max": 100,
+      "step": 1
+    },
     "hint": "同一个人又发了多少条消息后才重新调用模型，避免频繁请求。"
   },
   "llm_cooldown_minutes": {
     "description": "AI 复核冷却时间（分钟）",
     "type": "int",
     "default": 120,
-    "slider": { "min": 10, "max": 1440, "step": 10 }
+    "slider": {
+      "min": 10,
+      "max": 1440,
+      "step": 10
+    }
   },
   "daily_enabled": {
     "description": "每日群氛围日报",
@@ -90,8 +114,16 @@
     "description": "日报发送位置",
     "type": "string",
     "default": "private",
-    "options": ["private", "group", "both"],
-    "labels": ["只发管理员私聊（推荐）", "只发群里", "群里发公开版 + 私聊发详细版"],
+    "options": [
+      "private",
+      "group",
+      "both"
+    ],
+    "labels": [
+      "只发管理员私聊（推荐）",
+      "只发群里",
+      "群里发公开版 + 私聊发详细版"
+    ],
     "subtitles": [
       "最安全：个人情况不会出现在群里",
       "群里只会看到整体气氛，不含人名和原话",
@@ -102,7 +134,11 @@
     "description": "出日报的最少消息数",
     "type": "int",
     "default": 5,
-    "slider": { "min": 1, "max": 100, "step": 1 },
+    "slider": {
+      "min": 1,
+      "max": 100,
+      "step": 1
+    },
     "hint": "当天消息太少就不生成，避免用几句话下结论。"
   },
   "image_report": {
@@ -121,14 +157,22 @@
     "description": "提醒阈值（0-100）",
     "type": "int",
     "default": 75,
-    "slider": { "min": 30, "max": 100, "step": 1 },
+    "slider": {
+      "min": 30,
+      "max": 100,
+      "step": 1
+    },
     "hint": "关注度达到该分值时推送提醒。阈值越低越敏感，也越容易误报。"
   },
   "alert_cooldown_hours": {
     "description": "同一人提醒冷却（小时）",
     "type": "int",
     "default": 24,
-    "slider": { "min": 1, "max": 168, "step": 1 }
+    "slider": {
+      "min": 1,
+      "max": 168,
+      "step": 1
+    }
   },
   "require_opt_in": {
     "description": "需要成员主动同意才记录",
@@ -158,5 +202,26 @@
     "type": "bool",
     "default": true,
     "hint": "片段会截断到 36 字。关闭后报告只有统计结果，不含任何原话。"
+  },
+  "weather_enabled": {
+    "description": "接入当日气象数据",
+    "type": "bool",
+    "default": true,
+    "hint": "用 Open-Meteo 公开预报，在日报里加一行「今日气象」和极端天气提示；不参与风险打分。"
+  },
+  "weather_city": {
+    "description": "城市名（仅展示用）",
+    "type": "string",
+    "default": "南京"
+  },
+  "weather_lat": {
+    "description": "纬度",
+    "type": "float",
+    "default": 32.06
+  },
+  "weather_lon": {
+    "description": "经度",
+    "type": "float",
+    "default": 118.8
   }
 }
